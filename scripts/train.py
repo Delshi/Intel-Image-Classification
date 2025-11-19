@@ -59,9 +59,9 @@ def main():
     # )
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=0.0004,
-        betas=(0.91, 0.985),
-        weight_decay=0.002,
+        lr=0.000375,
+        betas=(0.915, 0.985),
+        weight_decay=0.0017,
         amsgrad=True,
     )
     criterion = torch.nn.CrossEntropyLoss()

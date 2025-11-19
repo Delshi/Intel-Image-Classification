@@ -61,7 +61,7 @@ class CNN(nn.Module):
             nn.Flatten(),
             nn.Linear(1024, 2048),
             nn.ReLU(inplace=True),
-            nn.Dropout(dropout_rate / 2),
+            nn.Dropout(dropout_rate / 1.75),
             nn.Linear(2048, num_classes),
         )
         # end of else
