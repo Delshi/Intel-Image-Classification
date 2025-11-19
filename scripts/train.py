@@ -50,12 +50,19 @@ def main():
 
     # Модель и оптимизатор
     model = CNN(num_classes=len(train_dataset.classes)).to(device)
-    optimizer = torch.optim.SGD(
+    # optimizer = torch.optim.SGD(
+    #     model.parameters(),
+    #     lr=config["training"]["learning_rate"],
+    #     momentum=config["training"]["momentum"],
+    #     weight_decay=config["training"]["weight_decay"],
+    #     nesterov=True,
+    # )
+    optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=config["training"]["learning_rate"],
-        momentum=config["training"]["momentum"],
-        weight_decay=config["training"]["weight_decay"],
-        nesterov=True,
+        lr=0.0003,
+        betas=(0.92, 0.98),
+        weight_decay=0.002,
+        amsgrad=True,
     )
     criterion = torch.nn.CrossEntropyLoss()
 

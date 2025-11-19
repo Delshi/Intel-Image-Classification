@@ -53,14 +53,16 @@ class CNN(nn.Module):
         self.layer2 = self._make_layer(64, 128, blocks=2, stride=2)
         self.layer3 = self._make_layer(128, 256, blocks=2, stride=2)
         self.layer4 = self._make_layer(256, 512, blocks=2, stride=2)
+        #!
+        self.layer5 = self._make_layer(512, 1024, blocks=2, stride=2)
 
         self.classifier = nn.Sequential(
             nn.Dropout(dropout_rate),
             nn.Flatten(),
-            nn.Linear(512, 1024),
+            nn.Linear(1024, 2048),
             nn.ReLU(inplace=True),
             nn.Dropout(dropout_rate / 2),
-            nn.Linear(1024, num_classes),
+            nn.Linear(2048, num_classes),
         )
         # end of else
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
@@ -124,6 +126,7 @@ class CNN(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x = self.layer4(x)
+        x = self.layer5(x)
         x = self.dropout(x)
 
         x = self.avgpool(x)
