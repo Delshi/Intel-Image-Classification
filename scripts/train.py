@@ -59,8 +59,8 @@ def main():
     # )
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=0.0003,
-        betas=(0.92, 0.98),
+        lr=0.0004,
+        betas=(0.91, 0.985),
         weight_decay=0.002,
         amsgrad=True,
     )
