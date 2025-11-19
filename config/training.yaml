@@ -1,0 +1,15 @@
+data:
+  train_dir: "data/train"
+  test_dir: "data/test" 
+  pred_dir: "data/pred"
+  batch_size: 32
+  img_size: 150
+
+training:
+  learning_rate: 0.001
+  weight_decay: 0.002
+  momentum: 0.92
+  num_epochs: 21
+
+model:
+  num_classes: 6
