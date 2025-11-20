@@ -9,3 +9,5 @@ outputs/**/*.0 filter=lfs diff=lfs merge=lfs -text
 outputs/logs/** filter=lfs diff=lfs merge=lfs -text
 outputs/models/** filter=lfs diff=lfs merge=lfs -text
 *.0 filter=lfs diff=lfs merge=lfs -text
+outputs/*.tfevents.* filter=lfs diff=lfs merge=lfs -text
+outputs/logs/*.tfevents.* filter=lfs diff=lfs merge=lfs -text
