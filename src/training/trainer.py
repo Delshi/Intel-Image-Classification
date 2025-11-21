@@ -1,18 +1,19 @@
-import torch
-import matplotlib.pyplot as plt
+import io
 import os
+
+import matplotlib.pyplot as plt
 import numpy as np
-from tqdm import tqdm
+import seaborn as sns
+import torch
+from PIL import Image
 from sklearn.metrics import (
+    average_precision_score,
     confusion_matrix,
     precision_recall_curve,
-    average_precision_score,
 )
 from sklearn.preprocessing import label_binarize
-import seaborn as sns
-import io
-from PIL import Image
 from torch.utils.tensorboard import SummaryWriter
+from tqdm import tqdm
 
 
 class Trainer:
@@ -262,7 +263,6 @@ class Trainer:
             print(f"Error in confusion matrix: {e}")
 
     def update_history(self, train_loss, train_acc, val_loss, val_acc, epoch):
-        """Обновляет историю обучения"""
         self.history["train_loss"].append(train_loss)
         self.history["train_acc"].append(train_acc)
         self.history["val_loss"].append(val_loss)
@@ -309,7 +309,6 @@ class Trainer:
             plt.close(fig)
 
     def save_checkpoint(self, path, epoch, accuracy):
-        """Сохраняет чекпоинт модели"""
         os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(
             {
@@ -324,6 +323,5 @@ class Trainer:
         print(f"Checkpoint saved: {path}")
 
     def close(self):
-        """Закрывает writer TensorBoard"""
         if self.use_tensorboard:
             self.writer.close()

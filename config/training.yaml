@@ -6,12 +6,11 @@ data:
   img_size: 150
 
 training:
-  learning_rate: 0.0005
-  weight_decay: 0.003
-  momentum: 0.93
-  num_epochs_sgd: 24
+  learning_rate: 0.000375
+  beta0: 0.915
+  beta1: 0.985
+  weight_decay: 0.0017
   num_epochs: 30
-
 
 model:
   num_classes: 6

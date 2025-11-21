@@ -1,8 +1,6 @@
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
+
 from .residual import ResidualBlock
-from .bottleneck import BottleneckBlock
 
 
 class CNN(nn.Module):
@@ -29,31 +27,10 @@ class CNN(nn.Module):
         )
         self.dropout = nn.Dropout(0.1)
 
-        # if use_bottleneck:
-        #     self.layer1 = self._make_bottleneck_layer(64, 64, blocks=2, stride=1)
-        #     self.layer2 = self._make_bottleneck_layer(
-        #         256, 128, blocks=2, stride=2
-        #     )  # 64*4=256
-        #     self.layer3 = self._make_bottleneck_layer(
-        #         512, 256, blocks=2, stride=2
-        #     )  # 128*4=512
-        #     self.layer4 = self._make_bottleneck_layer(
-        #         1024, 512, blocks=2, stride=2
-        #     )  # 256*4=1024
-
-        #     self.classifier = nn.Sequential(
-        #         nn.Dropout(dropout_rate),
-        #         nn.Linear(2048, 1024),
-        #         nn.ReLU(inplace=True),
-        #         nn.Dropout(dropout_rate / 2),
-        #         nn.Linear(1024, num_classes),
-        #     )
-        # else:
         self.layer1 = self._make_layer(64, 64, blocks=2, stride=1)
         self.layer2 = self._make_layer(64, 128, blocks=2, stride=2)
         self.layer3 = self._make_layer(128, 256, blocks=2, stride=2)
         self.layer4 = self._make_layer(256, 512, blocks=2, stride=2)
-        #!
         self.layer5 = self._make_layer(512, 1024, blocks=2, stride=2)
 
         self.classifier = nn.Sequential(
@@ -64,7 +41,6 @@ class CNN(nn.Module):
             nn.Dropout(dropout_rate / 1.75),
             nn.Linear(2048, num_classes),
         )
-        # end of else
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
 
     def _make_layer(self, in_channels, out_channels, blocks, stride):
@@ -84,37 +60,24 @@ class CNN(nn.Module):
             )
 
         layers = []
-        layers.append(ResidualBlock(in_channels, out_channels, stride, downsample))
+        layers.append(
+            ResidualBlock(
+                in_channels,
+                out_channels,
+                stride,
+                downsample,
+            )
+        )
 
         for _ in range(1, blocks):
-            layers.append(ResidualBlock(out_channels, out_channels))
+            layers.append(
+                ResidualBlock(
+                    out_channels,
+                    out_channels,
+                )
+            )
 
         return nn.Sequential(*layers)
-
-    # def _make_bottleneck_layer(self, in_channels, out_channels, blocks, stride):
-    #     """Для Bottleneck блоков"""
-    #     downsample = None
-    #     expansion = 4
-
-    #     if stride != 1 or in_channels != out_channels * expansion:
-    #         downsample = nn.Sequential(
-    #             nn.Conv2d(
-    #                 in_channels,
-    #                 out_channels * expansion,
-    #                 kernel_size=1,
-    #                 stride=stride,
-    #                 bias=False,
-    #             ),
-    #             nn.BatchNorm2d(out_channels * expansion),
-    #         )
-
-    #     layers = []
-    #     layers.append(BottleneckBlock(in_channels, out_channels, stride, downsample))
-
-    #     for _ in range(1, blocks):
-    #         layers.append(BottleneckBlock(out_channels * expansion, out_channels))
-
-    #     return nn.Sequential(*layers)
 
     def forward(self, x):
         x = self.conv1(x)

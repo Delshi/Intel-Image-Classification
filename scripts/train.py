@@ -50,29 +50,23 @@ def main():
 
     # Модель и оптимизатор
     model = CNN(num_classes=len(train_dataset.classes)).to(device)
-    # optimizer = torch.optim.SGD(
-    #     model.parameters(),
-    #     lr=config["training"]["learning_rate"],
-    #     momentum=config["training"]["momentum"],
-    #     weight_decay=config["training"]["weight_decay"],
-    #     nesterov=True,
-    # )
+
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=0.000375,
-        betas=(0.915, 0.985),
-        weight_decay=0.0017,
+        lr=config["training"]["learning_rate"],
+        betas=(config["training"]["beta0"], config["training"]["beta1"]),
+        weight_decay=config["training"]["weight_decay"],
         amsgrad=True,
     )
     criterion = torch.nn.CrossEntropyLoss()
 
     scheduler = ReduceLROnPlateau(optimizer, mode="max", patience=2, factor=0.5)
 
-    # dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
-    # output = model(dummy_tensor)
-    # dot = make_dot(output, params=dict(model.named_parameters()))
-    # dot.format = "png"
-    # dot.render("cnn_graph")
+    dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
+    output = model(dummy_tensor)
+    dot = make_dot(output, params=dict(model.named_parameters()))
+    dot.format = "png"
+    dot.render("cnn_graph")
 
     # Тренер
     log_dir = os.path.join(project_root, "outputs", "logs")
