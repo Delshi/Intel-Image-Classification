@@ -6,6 +6,10 @@
 **An efficient convolutional neural network** achieving **90% accuracy** on the Intel Image Classification dataset in just 15-30 training epochs **without transfer learning** with comprehensive metric monitoring.
 
 - [Results](#results)
+- [Architecture](#architecture)
+
+  - [Optimizer](#optimizer)
+
 - [Metrics](#metrics)
 - [TensorBoard](#tensorboard)
 
@@ -14,10 +18,6 @@
   - [Confusion Matrix](#confusionmatrix)
   - [Histograms](#histograms)
   - [Distributions](#distributions)
-
-- [Architecture](#architecture)
-
-  - [Optimizer](#optimizer)
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -31,6 +31,38 @@
 - **Comprehensive monitoring** via TensorBoard
 - **Excellent PR-Curves** and histograms
 - **Overfitting gap** of only **0.17%**
+
+## Architecture
+
+<details><summary>Full diagram</summary>
+
+![CNN Full Graph](result/diagram/cnn_graph_full.png)
+
+---
+
+</details>
+
+---
+
+![CNN Principal Scheme](result/diagram/cnn_principal_scheme.png)
+
+### Optimizer
+
+Various optimizers were tested, including PNMBelief, DiffPNM, Adam, AdamW, SGD, NSGD. As a result of testing and fine-tuning, it was found that optimizers with positive-negative momentum estimation do not provide accuracy improvements for this model. SGD and Nesterov SGD optimizers also showed no advantages in either accuracy or convergence speed.
+
+The best optimizer turned out to be AdamW, achieving maximum accuracy of 90.07% with the fastest convergence speed. The model with AdamW optimizer reaches about 89% accuracy in just 12-30 epochs, which is significantly faster than other optimizers that lag behind by an average of 10-15 epochs under similar conditions.
+
+Optimal parameters were determined empirically:
+
+```bash
+  num_epochs: 30
+  batch_size: 40
+
+  learning_rate: 0.000375
+  beta0: 0.915
+  beta1: 0.985
+  weight_decay: 0.0017
+```
 
 ## Metrics
 
@@ -83,38 +115,6 @@ _Gradients and biases histograms_
 _Biases and gradients distributions_
 
 </div>
-
-## Architecture
-
-<details><summary>Full diagram</summary>
-
-![CNN Full Graph](result/diagram/cnn_graph_full.png)
-
----
-
-</details>
-
----
-
-![CNN Principal Scheme](result/diagram/cnn_principal_scheme.png)
-
-### Optimizer
-
-Various optimizers were tested, including PNMBelief, DiffPNM, Adam, AdamW, SGD, NSGD. As a result of testing and fine-tuning, it was found that optimizers with positive-negative momentum estimation do not provide accuracy improvements for this model. SGD and Nesterov SGD optimizers also showed no advantages in either accuracy or convergence speed.
-
-The best optimizer turned out to be AdamW, achieving maximum accuracy of 90.07% with the fastest convergence speed. The model with AdamW optimizer reaches about 89% accuracy in just 12-30 epochs, which is significantly faster than other optimizers that lag behind by an average of 10-15 epochs under similar conditions.
-
-Optimal parameters were determined empirically:
-
-```bash
-  num_epochs: 30
-  batch_size: 40
-
-  learning_rate: 0.000375
-  beta0: 0.915
-  beta1: 0.985
-  weight_decay: 0.0017
-```
 
 ## Installation
 
