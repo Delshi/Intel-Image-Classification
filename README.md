@@ -1,6 +1,9 @@
 # Convolutional Neural Network for Intel Image Classification
 
-**Эффективная сверточная нейронная сеть**, достигающая **90% точности** на датасете Intel Image Classification всего за **15-30 эпох** обучения с комплексным мониторингом метрик.
+- [English](README_EN.md)
+- [Русский](README.md)
+
+**Эффективная сверточная нейронная сеть**, достигающая **90% точности** на датасете Intel Image Classification всего за **15-30 эпох** обучения **без использования предобученных сетей** с комплексным мониторингом метрик.
 
 - [Результаты](##Результаты)
 - [Метрики](##Метрики)
@@ -74,8 +77,8 @@ _Гистограммы градиентов и смещений_
 
 ### Distributions
 
-<div align="center"><img src="result/distributions/biases_distributions.png" width="75%" alt="Gradients Histograms"> <img src="
-result/distributions/gradients_distributions.png" width="75%" alt="Biases Histograms">
+<div align="center"><img src="result/distributions/biases_distributions.png" width="75%" alt="Biases Distributions">
+<img src="result/distributions/gradients_distributions.png" width="75%" alt="Gradients Distributions">
 
 _Распределения смещений и градиентов_
 
