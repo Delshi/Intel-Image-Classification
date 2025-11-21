@@ -134,6 +134,7 @@ python scripts/predict.py
 
 ## Dependencies
 
+- 5.5-6 GB VRAM/RAM
 - Python >=3.13,<3.15
 - NumPy (>=2.3.5,<3.0.0)
 - Tqdm (>=4.67.1,<5.0.0)
