@@ -17,11 +17,6 @@ def start_learn(
         print(f"\nEpoch {epoch+1}/{config['training']['num_epochs']}")
         print("-" * 50)
 
-        # if epoch == 19:
-        #     optimizer.param_groups[0]["lr"] = 0.001
-        #     print(optimizer.param_groups[0]["lr"])
-        #     print("OPTIMIZER LR MANUALLY CHANGED")
-
         # Обучение
         train_loss, train_acc = trainer.train_epoch(train_loader, epoch + 1)
 

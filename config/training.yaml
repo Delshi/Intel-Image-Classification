@@ -2,8 +2,7 @@ data:
   train_dir: "data/train"
   test_dir: "data/test" 
   pred_dir: "data/pred"
-  batch_size: 36
-  batch_size_old: 40
+  batch_size: 40
   img_size: 150
 
 training:
@@ -11,7 +10,7 @@ training:
   weight_decay: 0.003
   momentum: 0.93
   num_epochs_sgd: 24
-  num_epochs: 42
+  num_epochs: 30
 
 
 model:

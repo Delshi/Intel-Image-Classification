@@ -59,17 +59,14 @@ def main():
     # )
     optimizer = torch.optim.AdamW(
         model.parameters(),
-        lr=0.0004,
+        lr=0.000375,
         betas=(0.915, 0.985),
         weight_decay=0.0017,
         amsgrad=True,
     )
     criterion = torch.nn.CrossEntropyLoss()
 
-    # scheduler = ReduceLROnPlateau(optimizer, mode="max", patience=2, factor=0.5)
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
-        optimizer=optimizer, T_0=9
-    )
+    scheduler = ReduceLROnPlateau(optimizer, mode="max", patience=2, factor=0.5)
 
     # dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
     # output = model(dummy_tensor)
