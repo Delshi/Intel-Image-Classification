@@ -49,42 +49,27 @@ def main():
     )
 
     # Модель и оптимизатор
-    model = CNN(num_classes=len(train_dataset.classes), config=config).to(device)
-
-    optimizers = {
-        "sgd": torch.optim.SGD(
-            model.parameters(),
-            lr=config["training"]["learning_rate_sgd"],
-            momentum=config["training"]["momentum_sgd"],
-            weight_decay=config["training"]["weight_decay_sgd"],
-            nesterov=True,
-        ),
-        "adamw": torch.optim.AdamW(
-            model.parameters(),
-            lr=config["training"]["learning_rate_adamw"],
-            betas=(
-                config["training"]["betas0_adamw"],
-                config["training"]["betas1_adamw"],
-            ),
-            weight_decay=config["training"]["weight_decay_adamw"],
-            amsgrad=True,
-        ),
-    }
-
-    optimizer = optimizers[config["training"]["sgd_or_adamw"]]
-
+    model = CNN(num_classes=len(train_dataset.classes)).to(device)
+    # optimizer = torch.optim.SGD(
+    #     model.parameters(),
+    #     lr=config["training"]["learning_rate"],
+    #     momentum=config["training"]["momentum"],
+    #     weight_decay=config["training"]["weight_decay"],
+    #     nesterov=True,
+    # )
+    optimizer = torch.optim.AdamW(
+        model.parameters(),
+        lr=0.0004,
+        betas=(0.915, 0.985),
+        weight_decay=0.0017,
+        amsgrad=True,
+    )
     criterion = torch.nn.CrossEntropyLoss()
-    #!
-    # if config["training"]["sgd_or_adamw"] == "adamw":
-    if config["training"]["sgd_or_adamw"] == "sgd":
 
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
-            optimizer=optimizer, T_0=9
-        )
-    else:
-        scheduler = ReduceLROnPlateau(
-            optimizer=optimizer, patience=5, mode="max", factor=0.5
-        )
+    # scheduler = ReduceLROnPlateau(optimizer, mode="max", patience=2, factor=0.5)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
+        optimizer=optimizer, T_0=9
+    )
 
     # dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
     # output = model(dummy_tensor)

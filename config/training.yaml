@@ -3,21 +3,14 @@ data:
   test_dir: "data/test" 
   pred_dir: "data/pred"
   batch_size: 36
-  # batch_size_for_sgd: 40
+  batch_size_old: 40
   img_size: 150
 
 training:
-  sgd_or_adamw: "adamw"
-
-  learning_rate_sgd: 0.000375
-  weight_decay_sgd: 0.003
-  momentum_sgd: 0.93
-
-  learning_rate_adamw: 0.000375
-  betas0_adamw: 0.915
-  betas1_adamw: 0.985
-  weight_decay_adamw: 0.0017
-
+  learning_rate: 0.0005
+  weight_decay: 0.003
+  momentum: 0.93
+  num_epochs_sgd: 24
   num_epochs: 42
 
 
