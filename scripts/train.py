@@ -62,11 +62,11 @@ def main():
 
     scheduler = ReduceLROnPlateau(optimizer, mode="max", patience=2, factor=0.5)
 
-    dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
-    output = model(dummy_tensor)
-    dot = make_dot(output, params=dict(model.named_parameters()))
-    dot.format = "png"
-    dot.render("cnn_graph")
+    # dummy_tensor = torch.randn(2, 3, 150, 150).to(device)
+    # output = model(dummy_tensor)
+    # dot = make_dot(output, params=dict(model.named_parameters()))
+    # dot.format = "png"
+    # dot.render("cnn_graph")
 
     # Тренер
     log_dir = os.path.join(project_root, "outputs", "logs")
