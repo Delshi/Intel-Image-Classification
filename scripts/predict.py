@@ -56,9 +56,6 @@ def predict():
 
     pred_dir = os.path.join(project_root, config["data"]["pred_dir"])
     if os.path.exists(pred_dir):
-
-        worst = []
-
         print(f"\nMaking predictions for images in {pred_dir}:")
         for img_name in os.listdir(pred_dir):
             if img_name.lower().endswith((".png", ".jpg", ".jpeg")):
@@ -68,10 +65,6 @@ def predict():
                 print(
                     f"Image: {img_name} -> Class: {class_name} (ID: {class_id}), Confidence: {confidence:.2f}"
                 )
-                if confidence < 0.85:
-                    worst.append((img_name, class_name))
-
-        print(f"\nWorst:\n{worst}")
 
 
 if __name__ == "__main__":
