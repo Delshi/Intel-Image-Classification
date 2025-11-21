@@ -3,7 +3,7 @@
 - [English](README_EN.md)
 - [Русский](README.md)
 
-**An efficient convolutional neural network** achieving **90% accuracy** on the Intel Image Classification dataset in just 15-30 training epochs **without transfer learning** with comprehensive metric monitoring.
+**An efficient convolutional neural network** achieving **90% accuracy** on the Intel Image Classification dataset in just **12-30 training epochs** **without transfer learning** with comprehensive metric monitoring.
 
 - [Results](#results)
 - [Architecture](#architecture)
