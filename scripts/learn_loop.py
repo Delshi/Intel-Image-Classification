@@ -13,14 +13,11 @@ def start_learn(
 ):
     best_acc = 0
 
+    epoch_acc_counter = []
+
     for epoch in range(config["training"]["num_epochs"]):
         print(f"\nEpoch {epoch+1}/{config['training']['num_epochs']}")
         print("-" * 50)
-
-        # if epoch == 19:
-        #     optimizer.param_groups[0]["lr"] = 0.001
-        #     print(optimizer.param_groups[0]["lr"])
-        #     print("OPTIMIZER LR MANUALLY CHANGED")
 
         # Обучение
         train_loss, train_acc = trainer.train_epoch(train_loader, epoch + 1)
@@ -29,6 +26,25 @@ def start_learn(
         val_loss, val_acc, predictions, targets, probabilities = trainer.validate(
             test_loader, epoch + 1
         )
+
+        # if epoch >= 15:
+        #     epoch_acc_counter.append(val_acc)
+        #     if (epoch >= 25) and (
+        #         (
+        #             abs(epoch_acc_counter[0] - epoch_acc_counter[-1])
+        #             <= sum(epoch_acc_counter) / len(epoch_acc_counter)
+        #         )
+        #         or (
+        #             any([acc for acc in epoch_acc_counter >= 0.89])
+        #             and (
+        #                 (sum(epoch_acc_counter) / len(epoch_acc_counter))
+        #                 <= val_acc - 0.01
+        #                 or sum(epoch_acc_counter) / len(epoch_acc_counter)
+        #             )
+        #             <= val_acc + 0.01
+        #         )
+        #     ):
+        #         optimizer.param_groups[0]["lr"] = 0.001
 
         trainer.update_history(train_loss, train_acc, val_loss, val_acc, epoch + 1)
 
