@@ -5,23 +5,23 @@
 
 **An efficient convolutional neural network** achieving **90% accuracy** on the Intel Image Classification dataset in just 15-30 training epochs **without transfer learning** with comprehensive metric monitoring.
 
-- [Results](##Results)
-- [Metrics](##Metrics)
-- [ TensorBoard](###TensorBoard)
+- [Results](#results)
+- [Metrics](#metrics)
+- [TensorBoard](#tensorboard)
 
-  - [ Scalars](###Scalars)
-  - [ PR-Curves](###PR-Curves)
-  - [ Confusion Matrix](###ConfusionMatrix)
-  - [ Histograms](###Histograms)
-  - [ Distributions](###Distributions)
+  - [Scalars](#scalars)
+  - [PR-Curves](#pr-curves)
+  - [Confusion Matrix](#confusionmatrix)
+  - [Histograms](#histograms)
+  - [Distributions](#distributions)
 
-- [Architecture](##Architecture)
+- [Architecture](#architecture)
 
-  - [ Optimizer](###Optimizer)
+  - [Optimizer](#optimizer)
 
-- [Installation](##Installation)
-- [Usage](##Usage)
-- [Dependencies](##Dependencies)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
 
 ## Results
 
